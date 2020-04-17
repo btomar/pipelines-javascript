@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-16.04'
 
 steps:
 - task: NodeTool@0
@@ -24,3 +24,13 @@ steps:
     npm install pm2
     npm run build
   displayName: 'npm install and build pm2'
+
+- script: |
+    npm install nginx
+    npm run build
+  displayName: 'install nginx'
+
+- script: |
+    pm2 start server.js -i max
+  displayName: 'pm2 start server'
+
